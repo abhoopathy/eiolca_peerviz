@@ -9,6 +9,7 @@ This readme is a work in progress.
         git clone https://abhoopathy@bitbucket.org/abhoopathy/eiolca_collegeviz.git
 
 3. Create a symlink of the source directory in the XAMPP htdocs using
+   :::bash
         ln -s PATH_TO_REPO/source/ XAMPP_DIR/htdocs/collegeviz
 
     (On mac, the XAMPP path is /Applications/XAMPP/htdocs/. On windows, I believe it's in the root of your main drive.)
