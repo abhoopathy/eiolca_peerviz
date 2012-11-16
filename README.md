@@ -1,7 +1,16 @@
-# Getting Started
 This readme is a work in progress.
 
-## Set up
+# About the Project
+
+## Purpose
+Why are we making this? Who?
+
+## General Architecture
+Info about the architecture of the application
+
+# Getting Started
+
+## Development Environment
 
 1. Install [XAMPP](http://www.apachefriends.org/en/xampp.html)
 
@@ -21,7 +30,7 @@ This readme is a work in progress.
 
 ## Configure SQL
 
-1. Open XAMPP Control, and start Apache and MySQL.
+1. Open XAMPP Control. Start Apache and MySQL.
 
 2. Navigate to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/) .
 
@@ -39,18 +48,12 @@ passwords. If you don't have it, also email Aneesh for that.
 6. Navigate to [http://localhost/collegeviz/php/json_all.php](http://localhost/collegeviz/php/json_all.php) to make
    sure that works.
 
-## To Add
+# Deploying
 Info about the app's architecture, building, and deploying
 
-//## How it Works
-//Info about the architecture of the application
-//
-//## Building
-//Info about building the app
-//
-//## Building
-//Info about the architecture of the application
-//
-//## About the Project
-//Info about why this is being built
-//Add some text about the project here
+## Building
+Info about building the app, minifying js, etc.
+
+## Deplying
+Info about Deploying
+
