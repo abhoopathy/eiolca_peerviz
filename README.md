@@ -1,7 +1,7 @@
 # Getting Started
 This readme is a work in progress.
 
-### Set up
+## Set up
 
 1. Install [XAMPP](http://www.apachefriends.org/en/xampp.html)
 
@@ -41,17 +41,15 @@ passwords. If you don't have it, also email Aneesh for that.
 ## To Add
 Info about the app's architecture, building, and deploying
 
-<!--
-## How it Works
-Info about the architecture of the application
-
-## Building
-Info about building the app
-
-## Building
-Info about the architecture of the application
-
-## About the Project
-Info about why this is being built
-Add some text about the project here
--->
+//## How it Works
+//Info about the architecture of the application
+//
+//## Building
+//Info about building the app
+//
+//## Building
+//Info about the architecture of the application
+//
+//## About the Project
+//Info about why this is being built
+//Add some text about the project here
