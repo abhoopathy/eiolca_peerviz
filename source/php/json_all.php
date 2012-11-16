@@ -1,4 +1,8 @@
 <?php
+
+    include("headers.php");
+    mysql_select_db("eiolca", $con);
+
 	class Filter
 	{
 		public $table_name;
@@ -109,9 +113,11 @@
 		}
 	}
 
+    /*
 	foreach($columns_to_show as $col) {
 		array_push($filters, new Filter($col[table],$col[column],$col[name], "="));
 	}
+     */
 	/*** Parse Filters ***/
 	foreach($filters as $f)
 	{
@@ -172,16 +178,6 @@
 	{
 		$query .= " and ".$cond;
 	}
-	
-    /*** Connection to MySQL Database ***/
-    $con = mysql_connect("localhost", "eiolca", "xyzzy");
-	
-    if (!$con)
-    {
-		die('Could not connect to database: ' . mysql_error());
-    }
-
-    mysql_select_db("eiolca", $con);
 
 	$query .= $order_cond.$limit_cond;
 	//send query
