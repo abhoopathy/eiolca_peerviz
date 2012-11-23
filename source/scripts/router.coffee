@@ -6,7 +6,12 @@ define [
 
 ], ($, _, Backbone ) ->
 
+    # The Backbone Router. It is cool
     Router = Backbone.Router.extend
+
+        # Set up routes for searching for things,
+        # and a defaultAction route if nothing else
+        # is matched (must be last)
         routes:
             'search/:term': 'search'
             '*actions': 'defaultAction'

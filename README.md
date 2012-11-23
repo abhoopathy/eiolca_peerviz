@@ -48,6 +48,17 @@ passwords. If you don't have it, also email Aneesh for that.
 6. Navigate to [http://localhost/collegeviz/php/json_all.php](http://localhost/collegeviz/php/json_all.php) to make
    sure that works.
 
+## Cross Origin Requests
+1. If your using chrome, and the website doesn't work, check
+   developer console. It's likely due to the error 'Cross origin requests
+are only supported for HTTP.' Start chrome with the flags
+
+    --new --args -allow-file-access-from-files
+
+Or if you're on mac, you can use this to make an alias:
+
+    alias chromeDev="open '/Applications/Google Chrome.app' --new --args -allow-file-access-from-files"
+
 # Deploying
 Info about the app's architecture, building, and deploying
 
