@@ -1,0 +1,26 @@
+<!DOCTYPE html>  <html> <head>   <title>router.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               router.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nx">define</span> <span class="p">[</span>
+    <span class="s">&#39;jquery&#39;</span><span class="p">,</span>
+    <span class="s">&#39;underscore&#39;</span><span class="p">,</span>
+    <span class="s">&#39;backbone&#39;</span><span class="p">,</span>
+
+
+<span class="p">],</span> <span class="nf">($, _, Backbone ) -&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>The Backbone Router. It is cool</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">Router = </span><span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span><span class="p">.</span><span class="nx">extend</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Set up routes for searching for things,
+and a defaultAction route if nothing else
+is matched (must be last)</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nv">routes:</span>
+            <span class="s">&#39;search/:term&#39;</span><span class="o">:</span> <span class="s">&#39;search&#39;</span>
+            <span class="s">&#39;*actions&#39;</span><span class="o">:</span> <span class="s">&#39;defaultAction&#39;</span>
+
+        <span class="nv">search: </span><span class="nf">(searchTerm) -&gt;</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">searchTerm</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>analytics: () ->
+   url = Backbone.history.getFragment()
+   <em>gaq.push(['</em>trackPageview', "/#{url}"])</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nv">initialize = </span><span class="nf">-&gt;</span>
+        <span class="nv">router = </span><span class="k">new</span> <span class="nx">Router</span>
+        <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nx">router</span>
+
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nv">initialize: </span><span class="nx">initialize</span>
+    <span class="p">}</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
