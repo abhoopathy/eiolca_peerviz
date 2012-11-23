@@ -49,7 +49,7 @@ passwords. If you don't have it, also email Aneesh for that.
    sure that works.
 
 ## Cross Origin Requests
-1. If your using chrome, and the website doesn't work, check
+If you're using chrome, and the website doesn't work, check
    developer console. It's likely due to the error 'Cross origin requests
 are only supported for HTTP.' Start chrome with the flags
 
@@ -58,6 +58,23 @@ are only supported for HTTP.' Start chrome with the flags
 Or if you're on mac, you can use this to make an alias:
 
     alias chromeDev="open '/Applications/Google Chrome.app' --new --args -allow-file-access-from-files"
+
+
+## Less Compilation
+You have options here:
+# LiveReload ($9)
+1. I use [LiveReload](http://livereload.com/). It watches a folder for
+   *.less file saves, compiles them to css, and reloads the browser via
+a browser plugin. I find this tremendously heplful. However, it is $9.
+(There is also [less.app](http://incident57.com/less/) which claims to do
+the same thing for free.)
+
+# Less-watcher (free)
+If you would rather not use LiveReload, you can watch and compile less
+files using [less-watcher](https://github.com/Doist/less-watcher).
+
+    sudo npm install less-watcher
+    less-watcher -p "" -d css/
 
 # Deploying
 Info about the app's architecture, building, and deploying
