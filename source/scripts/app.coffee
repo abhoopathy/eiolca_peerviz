@@ -1,15 +1,20 @@
-window.App = {}
-
-#The App
 define [
-    'jquery',
     'underscore',
     'backbone',
 
     'cs!router',
     'cs!views/main',
 
-], ($, _, Backbone, Router, MainView) ->
-    window.App = {}
-    App.mainView = new MainView()
-    App.router = Router.initialize()
+    'cs!collections/node'
+
+], ( _, Backbone, Router, MainView,
+    NodeModel, NodeCollection) ->
+
+        initialize: ->
+            vent = _.extend({}, Backbone.Events)
+
+            mainView = new MainView(vent)
+            router = Router.initialize()
+
+            #collection = new NodeCollection()
+            #collection.fetch();

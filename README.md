@@ -63,7 +63,7 @@ Or if you're on mac, you can use this to make an alias:
 You have options here:
 ### LiveReload ($9)
  I use [LiveReload](http://livereload.com/). It watches a folder for
-*.less file saves, compiles them to css, and reloads the browser via a
+*.less file changes, compiles them to css, and reloads the browser via a
 browser plugin. I find this tremendously heplful. However, it is $9.
 (There is also [less.app](http://incident57.com/less/) which claims to
 do the same thing for free.)
