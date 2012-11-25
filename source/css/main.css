@@ -1,3 +1,6 @@
+@import "jquery-ui-1.9.2.custom.min.css";
+
+@import "miso/stylesheet.css";
 /*---------------------------------------------------
     LESS Elements 0.6
   ---------------------------------------------------
@@ -101,3 +104,77 @@ p {
 */
 /* Mixins ---------------------------------------------------------------------------*/
 /* Custom buttons -------------------------------------------------------------------*/
+* {
+  font-family: 'helvetica';
+  font-size: 12px;
+}
+h1 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+#app-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+#app-wrapper #filters-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  bottom: 0;
+  border-right: 1px solid grey;
+}
+#app-wrapper #filters-wrapper #filter-selector .add-filter {
+  width: 100%;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 5px 0;
+}
+#app-wrapper #filters-wrapper #filter-selector .add-filter i.plus {
+  font-size: 1.5em;
+  font-style: normal;
+  margin-right: 5px;
+}
+#app-wrapper #filters-wrapper #filter-selector .filter-selector-list {
+  position: absolute;
+  left: -999px;
+  width: 100%;
+}
+#app-wrapper #filters-wrapper #filter-selector:hover .filter-selector-list {
+  left: 0;
+}
+#app-wrapper #filters-wrapper .filter-list .filter {
+  border-top: 1px solid grey;
+  padding: 10px;
+  position: relative;
+}
+#app-wrapper #filters-wrapper .filter-list .filter .remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: none;
+  color: #cdcdcd;
+  font-size: 1.5em;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#app-wrapper #filters-wrapper .filter-list .filter:hover .remove {
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}

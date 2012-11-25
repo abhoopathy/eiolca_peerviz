@@ -1,5 +1,41 @@
+@import "jquery-ui-1.9.2.custom.min.css";
 @import "elements.less";
 @import "grid.less";
 @import "reset.less";
 @import "mixins.less";
+@import "miso/stylesheet.css";
 
+* {
+    font-family: 'helvetica';
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+h2 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+#app-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    #filters-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200px;
+        bottom: 0;
+        border-right: 1px solid grey;
+
+        @import "filters.less";
+    }
+}

@@ -23,10 +23,9 @@ define [
 
 
         #### Handling UI Events
-        events: {
-            'change select': 'dropdownChanged'
+        events:
             'click .remove': 'removeFilter'
-        }
+            'change select': 'dropdownChanged'
 
         ## On selectbox change, get current value of select element, get url
         ## param name, and concatenate into URL parameter string

@@ -34,6 +34,12 @@ define [
 
             this.bindEvents()
 
+            #TODO remove these
+            #this.addFilter(1)
+            #this.addFilter(2)
+            #this.addFilter(3)
+
+
 
         #### Handle External events
 
@@ -58,7 +64,8 @@ define [
             this.$el.find('.filter-list').append filterView.el
 
 
-        ## filter data for app-wide filter collection
+
+        #### Filter data for app-wide filter collection
         filterData: [{
                 id: '1'
                 title: 'Climate Zone'

@@ -14,6 +14,7 @@ define [
             this.filters = filterCollection
             this.render()
             this.bindEvents()
+            this.$list = this.$el.find('ul')
 
         render: ->
             compiledTemplate = FilterSelectorTemplate({filters: this.filters.toJSON()})
@@ -35,23 +36,15 @@ define [
 
         #### Handling UI Events
 
-        events: {
-            'click #add-filter': 'showFilterClicked'
-            'click a': 'addFilterClicked'
-        }
+        events:
+            'click a': 'addFilter'
 
         ## When user add's a filter form selector, hide the option from
         ## the menu and trigger the addClicked event
-        addFilterClicked: (e) ->
+        addFilter: (e) ->
             $li = $(e.target).closest('li')
             filterID = $li.attr('data-filterID')
             app.events.trigger('filter:added', filterID)
             $li.hide()
-
-        ##
-        showFilterClicked: () ->
-            console.log "TODO showFilterClicked"
-
-
 
     return FilterSelectorView

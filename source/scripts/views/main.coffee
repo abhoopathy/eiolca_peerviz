@@ -4,6 +4,9 @@ define [
     'backbone',
     'cs!views/filtersPane',
 
+
+    'jqueryui',
+
 ], ($, _, Backbone, FiltersPaneView) ->
 
     MainView = Backbone.View.extend
