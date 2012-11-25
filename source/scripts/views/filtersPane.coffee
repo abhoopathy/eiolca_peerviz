@@ -30,30 +30,26 @@ define [
             this.filters = new FilterCollection()
             this.filters.add this.filterData
 
-            filterSelectorView = new FilterSelectorView(this.filters)
+            this.$filterList = $(".filter-list")
+
+            #TODO fix this
+            this.addFilter(1)
+            this.addFilter(2)
+            this.addFilter(3)
 
             this.bindEvents()
-
-            #TODO remove these
-            #this.addFilter(1)
-            #this.addFilter(2)
-            #this.addFilter(3)
-
 
 
         #### Handle External events
 
         bindEvents: ->
             _.bindAll(this)
-            app.events.on('filter:added', this.addFilter)
-            this.filters.on('change', this.filterChanged)
+            this.filters.on 'change:urlParam', this.filterChanged
 
-
-        filterChanged: (filterID) ->
+        filterChanged: () ->
             console.log this.filters.getUrlParams()
 
         addFilter: (filterID) ->
-
             filter = this.filters.get(filterID)
 
             if filter.get('type') == 'dropdown'
@@ -61,11 +57,11 @@ define [
             if filter.get('type') == 'range'
                 filterView = new RangeFilterView(filter)
 
-            this.$el.find('.filter-list').append filterView.el
-
+            this.$filterList.append filterView.el
 
 
         #### Filter data for app-wide filter collection
+        # TODO put specifics in seperate top level val
         filterData: [{
                 id: '1'
                 title: 'Climate Zone'

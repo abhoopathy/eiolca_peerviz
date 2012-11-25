@@ -5,6 +5,7 @@ define ['underscore','backbone'], (_,Backbone) ->
         defaults: {
             id: 0
             title: 'Title'
+            active: false
             type: ''
             urlParam: ''
         }

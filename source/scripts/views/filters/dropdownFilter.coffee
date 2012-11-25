@@ -49,7 +49,6 @@ define [
         ## filter:removed
         removeFilter: ->
             this.$el.remove()
-            this.filter.set({urlParam: ''})
-            app.events.trigger('filter:removed', this.filter.id)
+            this.filter.set({urlParam: '', active: false})
 
     return DropdownFilterView
