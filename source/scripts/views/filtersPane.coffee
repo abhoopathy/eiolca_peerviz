@@ -1,50 +1,66 @@
 define [
-    'jquery',
-    'backbone',
+    'jquery'
+    'backbone'
 
-    'cs!views//filters/dropdownFilter'
+    'cs!collections/filter'
+    'cs!views/filters/filterSelector'
 
-], ($, Backbone
-    DropdownFilterView) ->
+    'cs!views/filters/dropdownFilter'
+    'cs!views/filters/rangeFilter'
+
+], (
+    $
+    Backbone
+
+    FilterCollection
+    FilterSelectorView
+
+    DropdownFilterView
+    RangeFilterView
+) ->
 
     FiltersPaneView = Backbone.View.extend
 
+        #### Initialization
+
         el: $('#filters-wrapper')
 
-        filters: []
+        initialize: ->
+            # Initialize and populate filter collection
+            this.filters = new FilterCollection()
+            this.filters.add this.filterData
 
-        events: {
-            'click #add-filter': 'addFilter'
-        }
+            filterSelectorView = new FilterSelectorView(this.filters)
 
-        initialize: (vent) ->
+            this.bindEvents()
+
+
+        #### Handle External events
+
+        bindEvents: ->
             _.bindAll(this)
+            app.events.on('filter:added', this.addFilter)
+            this.filters.on('change', this.filterChanged)
 
-            this.vent = vent
-            this.vent.on("filter:UIChange", this.filterUIChange)
 
-        filterUIChange: ->
-            urlString = ""
-            _.each this.filters, (filterView) ->
-                urlString = filterView.url
-            console.log urlString
+        filterChanged: (filterID) ->
+            console.log this.filters.getUrlParams()
 
-        addFilter: () ->
-            filter = this.filterData[0]
+        addFilter: (filterID) ->
 
-            #filterView
-            #if filter.type == 'dropdown'
-            #    filterView = new DropdownFilterView()
-            #if filter.type == 'range'
-            #    filterView = new RangeFilterView()
+            filter = this.filters.get(filterID)
 
-            filterView = new DropdownFilterView(filter, this.vent)
-            this.$el.append filterView.el
-            this.filters.push filterView
+            if filter.get('type') == 'dropdown'
+                filterView = new DropdownFilterView(filter)
+            if filter.get('type') == 'range'
+                filterView = new RangeFilterView(filter)
 
-        filterData: [
-            {
-                id: 1
+            this.$el.find('.filter-list').append filterView.el
+
+
+        ## filter data for app-wide filter collection
+        filterData: [{
+                id: '1'
                 title: 'Climate Zone'
                 type: 'dropdown'
                 options: [
@@ -54,16 +70,26 @@ define [
                     {display:'4', value:'4'},
                     {display:'5', value:'5'},
                 ]
-                urlParam: 'climate' }
-
+                urlParamName: 'climate'
+            },
             {
-                id: 2
+                id: '2'
+                title: 'Type'
+                type: 'dropdown'
+                options: [
+                    {display:'Public', value:'1'},
+                    {display:'Private', value:'0'},
+                ]
+                urlParamName: 'public'
+            }
+            {
+                id: '3'
                 title: 'Enrollment'
                 type: 'range'
-                range: 1000
-                loUrlParam: 'lo_pop'
-                hiUrlParam: 'hi_pop' }
-
-        ]
+                loRange: 0
+                hiRange: 12000000
+                loUrlParamName: 'lo_pop'
+                hiUrlParamName: 'hi_pop'
+            }]
 
     return FiltersPaneView

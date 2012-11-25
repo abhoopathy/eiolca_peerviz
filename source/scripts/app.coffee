@@ -1,3 +1,5 @@
+window.app = {}
+
 define [
     'underscore',
     'backbone',
@@ -5,15 +7,13 @@ define [
     'cs!router',
     'cs!views/main',
 
-    'cs!collections/node'
 
-], ( _, Backbone, Router, MainView,
-    NodeModel, NodeCollection) ->
+], ( _, Backbone, Router, MainView) ->
 
         initialize: ->
-            vent = _.extend({}, Backbone.Events)
+            app.events = _.extend({}, Backbone.Events)
 
-            mainView = new MainView(vent)
+            mainView = new MainView()
             router = Router.initialize()
 
             #collection = new NodeCollection()

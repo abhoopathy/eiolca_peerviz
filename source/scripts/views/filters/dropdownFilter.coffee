@@ -1,42 +1,56 @@
 define [
-    'jquery',
-    'backbone',
+    'jquery'
+    'backbone'
     'jade!templates/filters/dropdownFilter'
 
-], ($, Backbone, DropdownFilterTemplate) ->
+], (
+    $
+    Backbone
+    DropdownFilterTemplate
+) ->
 
     DropdownFilterView = Backbone.View.extend
 
-        url: ''
+        #### Initialization
+        initialize: (filterModel) ->
+            this.filter = filterModel
+            this.render()
 
+        render: ->
+            compiledTemplate =
+                DropdownFilterTemplate(this.filter.toJSON())
+            this.$el.html(compiledTemplate)
+
+
+        #### Handling UI Events
         events: {
             'change select': 'dropdownChanged'
             'click .remove': 'removeFilter'
         }
 
-
-        # On UI filter change, get current value of select element, get url
-        # param name, and concatenate into URL parameter string
+        ## On selectbox change, get current value of select element, get url
+        ## param name, and concatenate into URL parameter string
         dropdownChanged: ->
+            # Get value of select box
             $dropdown = this.$el.find('select')
             urlParamValue = $dropdown.val()
-            urlParamName = this.filterData.urlParam
-            this.url = urlParamName + "=" + urlParamValue
-            this.vent.trigger('filter:UIChange')
 
+            if urlParamValue != 'default'
+
+                $dropdown.find("option[value='default']").remove()
+
+                # Get parameter name for url
+                urlParamName = this.filter.get "urlParamName"
+
+                # Set parameter status in model
+                this.filter.set
+                    urlParam: urlParamName + "=" + urlParamValue
+
+        ## On filter remove, set the url parameter string to '' and trigger
+        ## filter:removed
         removeFilter: ->
             this.$el.remove()
-            this.url = ""
-
-        render: ->
-            template = DropdownFilterTemplate(this.filterData)
-            this.$el.html(template)
-
-        initialize: (filterData, vent) ->
-            this.vent = vent
-            this.filterData = filterData
-            this.render()
-
-        #getParams: () ->
+            this.filter.set({urlParam: ''})
+            app.events.trigger('filter:removed', this.filter.id)
 
     return DropdownFilterView

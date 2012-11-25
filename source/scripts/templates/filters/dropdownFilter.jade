@@ -1,5 +1,7 @@
-h2= title
-button.remove Remove Filter
-select
-    - for k in options
-        option(value=k.value)=k.display
+.filter
+    h2= title
+    button.remove Remove Filter
+    select
+        option(value='default') Select
+        - for k in options
+            option(value=k.value)=k.display

@@ -18,6 +18,6 @@ define [
         initialize: (vent) ->
             this.render()
             this.vent = vent
-            filtersPaneView = new FiltersPaneView(vent)
+            filtersPaneView = new FiltersPaneView()
 
     return MainView
