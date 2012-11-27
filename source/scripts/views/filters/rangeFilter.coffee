@@ -22,7 +22,6 @@ define [
                 RangeFilterTemplate(this.filter.toJSON())
             this.$el.html(compiledTemplate)
 
-
         addSlider: ->
             loRange = this.filter.get('loRange')
             hiRange = this.filter.get('hiRange')
@@ -34,6 +33,8 @@ define [
                 max: hiRange
                 values: [loRange, hiRange]
                 slide: (e, ui) ->
+                    $tip = this.view.$loTip.text(ui.values[0])
+                    $tip = this.view.$hiTip.text(ui.values[1])
                     this.view.loVal = ui.values[0]
                     this.view.hiVal = ui.values[1]
 
@@ -41,15 +42,36 @@ define [
 
             this.$slider = this.$el.find('.range-slider').slider opts
 
+            this.$loTip = this.$el.find('.loVal')
+            this.$hiTip = this.$el.find('.hiVal')
+            this.$el.find('.ui-slider-handle:eq(0)').append this.$loTip
+            this.$el.find('.ui-slider-handle:eq(1)').append this.$hiTip
+
+
+
 
         #### Handling UI Events
         events:
             'click .remove': 'removeFilter'
-            'mouseup a.ui-slider-handle': 'sliderChanged'
+            'mouseup .ui-slider-handle': 'sliderChanged'
 
         sliderChanged: ->
-            console.log this.loVal
-            console.log this.hiVal
+
+            if this.loVal == this.filter.get('loRange')
+                loStr = ''
+            else
+                loStr = this.filter.get('loUrlParamName') +
+                    '=' + this.loVal
+
+            if this.hiVal == this.filter.get('hiRange')
+                hiStr = ''
+            else
+                hiStr = (if loStr == '' then '' else '&') +
+                    this.filter.get('hiUrlParamName') +
+                    '=' + this.hiVal
+
+            this.filter.set { urlParam: loStr + hiStr }
+
 
         ## On filter remove, set the url parameter string to '' and trigger
         ## filter:removed

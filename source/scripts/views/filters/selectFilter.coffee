@@ -25,25 +25,25 @@ define [
         #### Handling UI Events
         events:
             'click .remove': 'removeFilter'
-            'change select': 'selectChanged'
+            'click .select-option:not(.selected)': 'selectChanged'
 
-        ## On selectbox change, get current value of select element, get url
-        ## param name, and concatenate into URL parameter string
-        selectChanged: ->
-            # Get value of select box
-            $select = this.$el.find('select')
-            urlParamValue = $select.val()
+        ## On selectbox change, get current value of option.
+        ## Set model's urlParam attribute either  to '' or correct
+        ## name=val pair.
+        selectChanged: (e) ->
+            $option = $(e.target)
+            this.$el.find('li.select-option.selected')
+                .removeClass('selected')
+            $option.addClass('selected')
 
-            if urlParamValue != 'default'
+            # Get parameter value
+            urlParamValue = $option.attr('data-val')
 
-                $select.find("option[value='default']").remove()
-
-                # Get parameter name for url
+            if urlParamValue == 'default'
+                this.filter.set {urlParam: ''}
+            else
                 urlParamName = this.filter.get "urlParamName"
-
-                # Set parameter status in model
-                this.filter.set
-                    urlParam: urlParamName + "=" + urlParamValue
+                this.filter.set {urlParam: urlParamName + "=" + urlParamValue}
 
         ## On filter remove, set the url parameter string to '' and trigger
         ## filter:removed

@@ -204,6 +204,20 @@ h2 {
   margin-left: auto;
   margin-right: auto;
 }
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider .ui-slider-handle {
+  outline: none;
+}
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider .ui-slider-handle .loVal,
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider .ui-slider-handle .hiVal {
+  position: absolute;
+  top: 20px;
+  color: black;
+  display: none;
+}
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider .ui-slider-handle:hover .loVal,
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider .ui-slider-handle:hover .hiVal {
+  display: block;
+}
 #app-wrapper #filters-wrapper .filter-list .filter:hover .remove {
   display: block;
   position: absolute;
