@@ -39,7 +39,7 @@ define [
 
             _.bindAll(opts)
 
-            this.$slider = this.$el.find('#range-slider').slider opts
+            this.$slider = this.$el.find('.range-slider').slider opts
 
 
         #### Handling UI Events

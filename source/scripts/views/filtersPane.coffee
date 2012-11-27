@@ -3,9 +3,8 @@ define [
     'backbone'
 
     'cs!collections/filter'
-    'cs!views/filters/filterSelector'
 
-    'cs!views/filters/dropdownFilter'
+    'cs!views/filters/selectFilter'
     'cs!views/filters/rangeFilter'
 
 ], (
@@ -13,9 +12,8 @@ define [
     Backbone
 
     FilterCollection
-    FilterSelectorView
 
-    DropdownFilterView
+    SelectFilterView
     RangeFilterView
 ) ->
 
@@ -52,8 +50,8 @@ define [
         addFilter: (filterID) ->
             filter = this.filters.get(filterID)
 
-            if filter.get('type') == 'dropdown'
-                filterView = new DropdownFilterView(filter)
+            if filter.get('type') == 'select'
+                filterView = new SelectFilterView(filter)
             if filter.get('type') == 'range'
                 filterView = new RangeFilterView(filter)
 
@@ -65,7 +63,7 @@ define [
         filterData: [{
                 id: '1'
                 title: 'Climate Zone'
-                type: 'dropdown'
+                type: 'select'
                 options: [
                     {display:'1', value:'1'},
                     {display:'2', value:'2'},
@@ -78,7 +76,7 @@ define [
             {
                 id: '2'
                 title: 'Type'
-                type: 'dropdown'
+                type: 'select'
                 options: [
                     {display:'Public', value:'1'},
                     {display:'Private', value:'0'},

@@ -1,4 +1,5 @@
-@import "jquery-ui-1.9.2.custom.min.css";
+//TODO used minified version of this
+@import "jquery-ui-1.9.2.custom.css";
 @import "elements.less";
 @import "grid.less";
 @import "reset.less";
@@ -6,16 +7,18 @@
 @import "miso/stylesheet.css";
 
 * {
-    font-family: 'helvetica';
-    font-size: 12px;
+    font-family: "misoregular";
+    font-size: 14px;
 }
 
 h1 {
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 h2 {
-    font-size: 1.2em;
+    font-family: "misoregular";
+    text-transform: uppercase;
+    font-size: 1.3em;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -23,10 +26,11 @@ h2 {
 
 #app-wrapper {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    @app-wrapper-margin: 30px;
+    top: @app-wrapper-margin;
+    left: @app-wrapper-margin;
+    right: @app-wrapper-margin;
+    bottom: @app-wrapper-margin;
 
     #filters-wrapper {
         position: absolute;
@@ -34,7 +38,6 @@ h2 {
         left: 0;
         width: 200px;
         bottom: 0;
-        border-right: 1px solid grey;
 
         @import "filters.less";
     }

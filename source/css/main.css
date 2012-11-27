@@ -1,4 +1,4 @@
-@import "jquery-ui-1.9.2.custom.min.css";
+@import "jquery-ui-1.9.2.custom.css";
 
 @import "miso/stylesheet.css";
 /*---------------------------------------------------
@@ -105,24 +105,26 @@ p {
 /* Mixins ---------------------------------------------------------------------------*/
 /* Custom buttons -------------------------------------------------------------------*/
 * {
-  font-family: 'helvetica';
-  font-size: 12px;
+  font-family: "misoregular";
+  font-size: 14px;
 }
 h1 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: bold;
 }
 h2 {
-  font-size: 1.2em;
+  font-family: "misoregular";
+  text-transform: uppercase;
+  font-size: 1.3em;
   font-weight: bold;
   margin-bottom: 5px;
 }
 #app-wrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
 }
 #app-wrapper #filters-wrapper {
   position: absolute;
@@ -130,7 +132,6 @@ h2 {
   left: 0;
   width: 200px;
   bottom: 0;
-  border-right: 1px solid grey;
 }
 #app-wrapper #filters-wrapper #filter-selector .add-filter {
   width: 100%;
@@ -155,26 +156,58 @@ h2 {
   left: 0;
 }
 #app-wrapper #filters-wrapper .filter-list .filter {
-  border-top: 1px solid grey;
-  padding: 10px;
+  border-top: 1px dotted black;
+  padding-top: 8px;
+  margin-bottom: 30px;
   position: relative;
 }
 #app-wrapper #filters-wrapper .filter-list .filter .remove {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: -10px;
+  right: 0px;
   display: none;
   color: #cdcdcd;
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 3em;
   cursor: pointer;
   -webkit-transform: rotate(45deg);
   -moz-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+#app-wrapper #filters-wrapper .filter-list .filter ul.select-options {
+  overflow: hidden;
+}
+#app-wrapper #filters-wrapper .filter-list .filter ul.select-options li.select-option {
+  display: inline;
+  float: left;
+  padding: 8px;
+  margin-left: 5px;
+  background-color: #cdcdcd;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+#app-wrapper #filters-wrapper .filter-list .filter ul.select-options li.select-option:hover {
+  background-color: #b3b3b3;
+}
+#app-wrapper #filters-wrapper .filter-list .filter ul.select-options li.select-option.selected {
+  background-color: black;
+  color: white;
+}
+#app-wrapper #filters-wrapper .filter-list .filter .range-slider {
+  width: 85%;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
 #app-wrapper #filters-wrapper .filter-list .filter:hover .remove {
   display: block;
   position: absolute;
-  top: 5px;
-  right: 5px;
+}
+#app-wrapper #filters-wrapper .filter-list .filter:hover .remove:hover {
+  color: #b3b3b3;
 }

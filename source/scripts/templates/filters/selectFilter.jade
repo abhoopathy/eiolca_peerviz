@@ -1,0 +1,11 @@
+.filter
+    h2= title
+    .remove +
+    ul.select-options
+        li.select-option.selected(value='default') All
+        - for k in options
+            li.select-option(value=k.value)=k.display
+    //select
+        option(value='default') Select
+        - for k in options
+            option(value=k.value)=k.display
