@@ -16,7 +16,7 @@
         position: absolute;
         background-color: black;
         left: 50%;
-        top: 20%;
+        top: 20px;
         width: 50%;
         //height: 50%;
         margin-left: -30%;
@@ -36,6 +36,36 @@
             text-transform: uppercase;
 
         }
+
+        ul.search-results {
+            margin-top: 10px;
+            max-height: 200px;
+            overflow: scroll;
+
+            li.search-result {
+                border-bottom: 1px solid darken(grey,35%);
+                padding: 10px;
+                overflow: hidden;
+                cursor: pointer;
+                .search-result-name {
+                    float: left;
+                    font-size: 1.8em;
+                    line-height: 1em;
+                }
+                .search-result-city {
+                    font-size: 1.5em;
+                    float: left;
+                }
+                &:hover {
+                    background-color: darken(grey,35%);
+                }
+                &:first-child {
+                    border-top: 1px solid grey;
+                }
+            }
+        }
+
+
     }
 
 }

@@ -2,12 +2,15 @@
 
     include("headers.php");
     mysql_select_db("eiolca", $con);
+    $search_term = $_GET['term'];
 
-    $query = "SELECT * FROM  `school` WHERE  `SCHOOL` LIKE  '%min%' LIMIT 0 , 50";
+    $query = "SELECT * FROM  `school` WHERE  `SCHOOL` LIKE  '%".$search_term."%' LIMIT 0 , 50";
+
 	//send query
     $result = mysql_query($query);
 	#parse result to JSON
     /*** Print output ***/
+
 
     if($result)
     {
@@ -22,13 +25,9 @@
 			echo "{";
 			$i=0;
 
-            echo "value: \"";
-            echo $row[1];
-            echo "\", ";
-            echo "label: \"";
-            echo $row[0];
+            echo "\"value\": \"".$row[1]."\", "."\"label\": \"".$row[0]."\"";
 
-			echo "\"}";
+			echo "}";
 		}
     	echo "]";
 	}
