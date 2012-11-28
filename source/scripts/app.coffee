@@ -5,15 +5,14 @@ define [
     'backbone',
 
     'cs!router',
-    'cs!views/main',
+    'cs!views/pickNodes',
 
-
-], ( _, Backbone, Router, MainView) ->
+], ( _, Backbone, Router, PickNodesView) ->
 
         initialize: ->
             app.events = _.extend({}, Backbone.Events)
 
-            mainView = new MainView()
+            pickNodesView = new PickNodesView()
             router = Router.initialize()
 
             #collection = new NodeCollection()

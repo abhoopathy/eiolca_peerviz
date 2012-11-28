@@ -1,0 +1,21 @@
+.search-overlay {
+  background-color: black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+}
+.search-overlay #search-overlay-box {
+  color: white;
+  position: absolute;
+  background-color: black;
+  z-index: 999;
+  left: 50%;
+  top: 50%;
+  width: 50%;
+  height: 50%;
+  margin-left: -25%;
+  margin-top: -25%;
+}

@@ -2,11 +2,11 @@ define [
     'jquery',
     'underscore',
     'backbone',
-    'cs!views/filtersPane',
+    'cs!views/pickNodes',
 
     'jqueryui',
 
-], ($, _, Backbone, FiltersPaneView) ->
+], ($, _, Backbone, PickNodesView) ->
 
     MainView = Backbone.View.extend
 
@@ -15,11 +15,8 @@ define [
         events: { }
 
         render: ->
-            #this.$el
 
-        initialize: (vent) ->
-            this.render()
-            this.vent = vent
-            filtersPaneView = new FiltersPaneView()
+        initialize: () ->
+            pickNodesView = new PickNodesView()
 
     return MainView

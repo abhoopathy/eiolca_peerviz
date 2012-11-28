@@ -9,6 +9,4 @@ define [
         model: NodeModel
         url: 'php/json_all.php'
 
-        someCollectionMethod: (class_id) -> this.get(class_id)
-
     return NodeCollection

@@ -21,13 +21,32 @@
     <script data-main="scripts/main" src="scripts/libs/require/require.js"></script>
 
     <div id="app-wrapper">
-        <div id="filters-wrapper">
-            <div class="filter-list">
+        <div id="pick-nodes">
+
+
+            <div id="filters-wrapper">
+                <div class="filter-list">
+                </div>
             </div>
+
+            <div id="map-wrapper"></div>
+            <div id="results-wrapper"></div>
         </div>
 
-        <div id="map-wrapper"></div>
-        <div id="results-wrapper"></div>
+        <div id="compare-nodes"></div>
+    </div>
+
+    <div class="search-overlay">
+        <div class="search-background"></div>
+        <div id="search-overlay-box">
+            <h1>Enter a School to Search</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            elementum lacus eget metus adipiscing sollicitudin. Integer
+            egestas, quam at eleifend adipiscing, turpis urna mollis erat, vel
+            ornare nunc arcu eu magna. Fusce urna tortor, rutrum sit amet
+            lacinia vitae, vulputate ut justo.</p>
+            <input id="search-input" value="3"></input>
+        </div>
     </div>
 
   </body>
