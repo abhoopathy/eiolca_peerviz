@@ -1,4 +1,3 @@
-app = {}
 
 define [
     'underscore',
@@ -10,7 +9,8 @@ define [
 ], ( _, Backbone, Router, PickNodesView) ->
 
         initialize: ->
-            app.events = _.extend({}, Backbone.Events)
+            window.app =
+                events:  _.extend({}, Backbone.Events)
 
             pickNodesView = new PickNodesView()
             router = Router.initialize()
