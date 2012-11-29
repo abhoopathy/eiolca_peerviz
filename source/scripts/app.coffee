@@ -1,4 +1,4 @@
-window.app = {}
+app = {}
 
 define [
     'underscore',
