@@ -69,6 +69,7 @@ define [
             this.$searchResults.html compiledTemplate
 
         initialize: () ->
+            this.$el.show()
             _.bindAll(this)
             this.$search = this.$el.find("#search-input")
             this.$searchResults = this.$el.find(".search-results")

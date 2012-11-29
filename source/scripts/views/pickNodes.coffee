@@ -22,6 +22,6 @@ define [
         initialize: () ->
             this.render()
             filtersPaneView = new FiltersPaneView()
-            searchOverlayView = new SearchOverlayView()
+            #searchOverlayView = new SearchOverlayView()
 
     return PickNodesView
