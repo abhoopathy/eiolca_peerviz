@@ -25,3 +25,4 @@ require.config({
 require(['cs!app'], function(App) {
     App.initialize();
 });
+

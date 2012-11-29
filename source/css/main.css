@@ -159,6 +159,9 @@ p {
   font-size: 1.5em;
   float: left;
 }
+.search-overlay #search-overlay-box ul.search-results li.search-result.selected {
+  background-color: #272727;
+}
 .search-overlay #search-overlay-box ul.search-results li.search-result:hover {
   background-color: #272727;
 }
