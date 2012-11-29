@@ -104,6 +104,9 @@ p {
 */
 /* Mixins ---------------------------------------------------------------------------*/
 /* Custom buttons -------------------------------------------------------------------*/
+.search-overlay {
+  display: none;
+}
 .search-overlay .search-background {
   background-color: black;
   position: absolute;

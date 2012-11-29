@@ -78,6 +78,6 @@ define [
         removeFilter: ->
             this.$el.remove()
             this.filter.set({urlParam: ''})
-            app.events.trigger('filter:removed', this.filter.id)
+            #app.events.trigger('filter:removed', this.filter.id)
 
     return RangeFilterView
