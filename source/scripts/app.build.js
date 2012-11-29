@@ -13,7 +13,7 @@
 
     modules: [
         {
-            name: "main"
+            name: "main",
         }
     ]
 })
