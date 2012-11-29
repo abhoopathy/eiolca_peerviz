@@ -19,6 +19,7 @@ define [
             if searchTerms.length > 2
                 $.getJSON "php/search.php?term=#{searchTerms}", this.updateResults
             else
+                this.emptyResults()
 
 
         emptyResults: ->
