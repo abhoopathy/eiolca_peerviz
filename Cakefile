@@ -6,7 +6,7 @@ task 'build', 'build the source dir', ->
         throw err if err
         console.log stdout + stderr
 
-task 'deploy', 'deploy to aneeshb.com', ->
-    exec 'scp -r build/* aneeshbc@50.22.11.7:~/www/blackboard', (err, stdout, stderr) ->
+task 'deploy', 'deploy to pmw', ->
+    exec 'scp -r build/* hsm@pmw.org:/usr/users/hsm/eiolca/www/peerviz', (err, stdout, stderr) ->
         throw err if err
         console.log stdout + stderr

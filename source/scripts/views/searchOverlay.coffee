@@ -74,6 +74,6 @@ define [
             this.$search = this.$el.find("#search-input")
             this.$searchResults = this.$el.find(".search-results")
             this.$search.focus()
-            $(window).bind('keyup', this.handleKeys)
+            $().bind('keyup', this.handleKeys)
 
     return SearchOverlayView
