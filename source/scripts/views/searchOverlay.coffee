@@ -7,73 +7,129 @@ define [
 
     SearchOverlayView = Backbone.View.extend
 
+
+        #### Initialization ####
+
         el: $('.search-overlay')
 
-        autoCompleteData: []
+        initialize: () ->
+            _.bindAll(@)
+            @$el.show()
+            @$search = @$el.find("#search-input").focus()
+            @$searchResults = @$el.find(".search-results")
+            @handleKeyPresses()
 
         events:
             'keyup #search-input': 'inputChanged'
+            'mouseenter .search-result': 'mouseOverResult'
+            'mouseleave .search-result': 'mouseOutResult'
+            'click .search-result': 'clickedResult'
 
+
+
+        #### Handle Autocomplete Fetching ####
+
+        ## On input change, fetch results and update
         inputChanged: (e) ->
-            searchTerms = this.$search.val()
+            searchTerms = @$search.val()
             if e.keyCode not in [40, 38, 13]
 
                 if searchTerms.length == 1
                     # select it
                 else if searchTerms.length > 2
-                    $.getJSON "php/search.php?term=#{searchTerms}", this.updateResults
-                    this.$selectedResult = null
+                    $.getJSON "php/search.php?term=#{searchTerms}", @updateResults
+                    @$selectedResult = null
                 else
-                    this.$selectedResult = null
-                    this.emptyResults()
+                    @$selectedResult = null
+                    @emptyResults()
 
-                e.stopPropagation()
+                    e.stopPropagation()
 
+        ## Empty results container
+        emptyResults: -> @$searchResults.html ''
+
+        ## Update results container given results json
+        updateResults: (results) ->
+            compiledTemplate = SearchResultsTemplate({results: results})
+            @$searchResults.html compiledTemplate
+
+
+
+        #### Handle Mouse Events ####
+        mouseOverResult: (e) -> @selectResult $(e.target)
+        mouseOutResult: (e) -> @selectReset
+        clickedResult: (e) -> @submitResult $(e.target)
+
+
+
+        #### Handle Key Events ####
+
+        ## Bind them to document
+        handleKeyPresses: -> $(window).bind('keyup', @handleKeys)
+
+        ## Handle down, up, and enter
         handleKeys: (e) ->
+            e.stopPropagation()
             # downkey
             if  e.keyCode == 40
-                this.downPressed()
+                @selectChange('down')
                 $("#search-input").blur()
 
             # upkey
             if e.keyCode == 38
-                this.upPressed()
+                @selectChange('up')
                 $("#search-input").blur()
 
             # enter key
             if e.keyCode == 13
-                this.enterPressed()
+                @submitResult @$selectedResult
 
-        downPressed: ->
-            if this.$selectedResult
-                this.$selectedResult.removeClass('selected')
-                this.$selectedResult = this.$selectedResult.next().addClass('selected')
-            else
-                this.$selectedResult = this.$searchResults.find('.search-result').first().addClass('selected')
-            $("#search-input").attr 'value',  this.$selectedResult.text()
 
-        upPressed: ->
-            if this.$selectedResult
-                this.$selectedResult.removeClass('selected')
-                this.$selectedResult = this.$selectedResult.prev().addClass('selected')
-                $("#search-input").attr 'value',  this.$selectedResult.text()
 
-        enterPressed: ->
-            console.log this
+        #### Methods for selecting results, and choosing them. ####
 
-        emptyResults: ->
-            this.$searchResults.html ''
+        ## Called to select next and previous result
+        ## with arrow keys
+        selectChange: (direction) ->
+            if direction in ['up', 'down']
+                if @$selectedResult
+                    # next/prev element
+                    $newResult =
+                        if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
+                    # If there is no next/previous element, reset
+                    if $newResult.length < 1
+                        return @selectReset()
+                    @selectResult $newResult
+                    @scrollTo $newResult
+                else
+                    # If nothing already selected, select first element
+                    @selectResult @$searchResults.find('.search-result').first()
 
-        updateResults: (results) ->
-            compiledTemplate = SearchResultsTemplate({results: results})
-            this.$searchResults.html compiledTemplate
+        scrollTo: ($result) ->
+            top = $result.position().top - @$searchResults.position().top
+            @$searchResults.scrollTop(top)
 
-        initialize: () ->
-            this.$el.show()
-            _.bindAll(this)
-            this.$search = this.$el.find("#search-input")
-            this.$searchResults = this.$el.find(".search-results")
-            this.$search.focus()
-            $().bind('keyup', this.handleKeys)
+        ## Given jq result object, deselect anything previously selected.
+        ## Select result, update input text with new selection.
+        ## Used for both keyboard and mouse events.
+        selectResult: ($result) ->
+            if @$selectedResult
+                @$selectedResult.removeClass('selected')
+            @$selectedResult = $result.addClass('selected')
+            $("#search-input").attr 'value',  @$selectedResult.text()
+
+        ## Selects nothing, updates input box 
+        selectReset: ->
+            if @$selectedResult
+                @$selectedResult.removeClass('selected')
+            @$selectedResult = null
+            $("#search-input").attr 'value',  ''
+
+        ## Submit a result. Happens both on click and on 'enter'
+        submitResult: ($result) ->
+            @$el.hide()
+            ipedsID = $result.attr 'data-ipedsID'
+            app.events.trigger 'search:resultSubmitted', ipedsID
+
 
     return SearchOverlayView
