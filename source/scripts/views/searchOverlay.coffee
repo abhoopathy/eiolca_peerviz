@@ -13,9 +13,9 @@ define [
 
 
         #### Initialization ####
-
         el: $('.search-overlay')
 
+        ## Bind key and mouse events to document
         initialize: () ->
             _.bindAll(this)
             @$el.show()
@@ -29,13 +29,39 @@ define [
             'mouseenter .search-result' : 'mouseOverResult'
             'mouseleave .search-result' : 'mouseOutResult'
 
-        ## Bind them to document
+        ## Bind key and mouse events to document
         bindDocumentEvents: ->
             $(window).bind('keyup', @handleKeys)
             $(window).bind('mousemove', @rebindHover)
+
+        ## Unbind these afterward to prevent memory leaks
         unbindDocumentEvents: ->
             $(window).unbind('keyup', @handleKeys)
             $(window).unbind('mousemove', @rebindHover)
+
+
+
+        #### Handle Mouse & Key Events ####
+        mouseOverResult: (e) -> @selectResult $(e.target) if @hoverEnabled
+        mouseOutResult: (e) -> @selectReset if @hoverEnabled
+        clickedResult: (e) -> @submitResult $(e.target)
+        rebindHover: (e) -> @hoverEnabled = true
+
+        # Handle key down/up to select results
+        # Enter key submits seleted result.
+        handleKeys: (e) ->
+            e.stopPropagation()
+            # downkey
+            if  e.keyCode == 40
+                @selectChange('down')
+
+            # upkey
+            if e.keyCode == 38
+                @selectChange('up')
+
+            # enter key
+            if e.keyCode == 13
+                @submitResult @$selectedResult
 
 
 
@@ -66,33 +92,7 @@ define [
 
 
 
-        #### Handle Mouse Events ####
-        mouseOverResult: (e) -> @selectResult $(e.target) if @hoverEnabled
-        mouseOutResult: (e) -> @selectReset if @hoverEnabled
-        clickedResult: (e) -> @submitResult $(e.target)
-        rebindHover: (e) -> @hoverEnabled = true
-
-
-
-        #### Handle Key Events ####
-        ## Handle down, up, and enter
-        handleKeys: (e) ->
-            e.stopPropagation()
-            # downkey
-            if  e.keyCode == 40
-                @selectChange('down')
-
-            # upkey
-            if e.keyCode == 38
-                @selectChange('up')
-
-            # enter key
-            if e.keyCode == 13
-                @submitResult @$selectedResult
-
-
-
-        #### Methods for selecting results, and choosing them. ####
+        #### Methods for selecting, choosing, scrolling results ####
         ## Called to select next and previous result
         ## with arrow keys
         selectChange: (direction) ->
@@ -127,16 +127,14 @@ define [
                     @selectResult @$searchResults.find('.search-result').first()
 
 
-        scrollUp: () ->
-                @$searchResults.scrollTop(
+        ## Scroll results box up and down with selected result
+        scrollUp: -> @$searchResults.scrollTop(
                     @$searchResults.scrollTop() - @$selectedResult.outerHeight())
-        scrollDown: ($result) ->
-                @$searchResults.scrollTop(
+        scrollDown: ($result) -> @$searchResults.scrollTop(
                     @$searchResults.scrollTop() + $result.outerHeight())
 
         ## Given jq result object, deselect anything previously selected.
         ## Select result, update input text with new selection.
-        ## Used for both keyboard and mouse events.
         selectResult: ($result) ->
             if @$selectedResult
                 $oldResult = @$selectedResult.removeClass('selected')
@@ -144,9 +142,10 @@ define [
             $("#search-input").attr 'value',  @$selectedResult.text()
             return $oldResult
 
-        ## Selects nothing, updates input box 
+        ## Selects nothing, clear input box
         selectReset: ->
-            if @$selectedResult then @$selectedResult.removeClass('selected')
+            if @$selectedResult
+                @$selectedResult.removeClass('selected')
             @$selectedResult = null
             $("#search-input").attr 'value',  ''
 
