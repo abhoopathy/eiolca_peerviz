@@ -17,5 +17,6 @@ define [
             this.render()
             filtersPaneView = new FiltersPaneView()
             searchOverlayView = new SearchOverlayView()
+            #peerResultsView = new peerResultsView()
 
     return PickNodesView

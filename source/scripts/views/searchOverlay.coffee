@@ -5,6 +5,10 @@ define [
     'jade!templates/searchResults'
 ], ($, _, Backbone, SearchResultsTemplate) ->
 
+    ## View for search overlay which opens on load, through
+    ## the pickNodes view.
+    # TODO: when only one result, select it
+    # TODO: browser test
     SearchOverlayView = Backbone.View.extend
 
 
@@ -17,13 +21,21 @@ define [
             @$el.show()
             @$search = @$el.find("#search-input").focus()
             @$searchResults = @$el.find(".search-results")
-            @handleKeyPresses()
+            @bindDocumentEvents()
 
         events:
             'keyup #search-input'       : 'inputChanged'
+            'click .search-result'      : 'clickedResult'
             'mouseenter .search-result' : 'mouseOverResult'
             'mouseleave .search-result' : 'mouseOutResult'
-            'click .search-result'      : 'clickedResult'
+
+        ## Bind them to document
+        bindDocumentEvents: ->
+            $(window).bind('keyup', @handleKeys)
+            $(window).bind('mousemove', @rebindHover)
+        unbindDocumentEvents: ->
+            $(window).unbind('keyup', @handleKeys)
+            $(window).unbind('mousemove', @rebindHover)
 
 
 
@@ -55,16 +67,14 @@ define [
 
 
         #### Handle Mouse Events ####
-        mouseOverResult: (e) -> @selectResult $(e.target)
-        mouseOutResult: (e) -> @selectReset
+        mouseOverResult: (e) -> @selectResult $(e.target) if @hoverEnabled
+        mouseOutResult: (e) -> @selectReset if @hoverEnabled
         clickedResult: (e) -> @submitResult $(e.target)
+        rebindHover: (e) -> @hoverEnabled = true
 
 
 
         #### Handle Key Events ####
-        ## Bind them to document
-        handleKeyPresses: -> $(window).bind('keyup', @handleKeys)
-
         ## Handle down, up, and enter
         handleKeys: (e) ->
             e.stopPropagation()
@@ -86,42 +96,57 @@ define [
         ## Called to select next and previous result
         ## with arrow keys
         selectChange: (direction) ->
-            if direction in ['up', 'down']
-                if @$selectedResult
-                    # next/prev element
-                    $newResult =
-                        if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
-                    # If there is no next/previous element, reset
-                    if $newResult.length < 1
-                      @$el.find("#search-input").focus()
-                      return @selectReset()
-                    @selectResult $newResult
-                    @scrollTo $newResult
-                else
-                    # If nothing already selected, select first or last
-                    # element (depending on direction)
-                    if direction == 'up'
-                      @selectResult @$searchResults.find('.search-result').last()
-                    else
-                      @selectResult @$searchResults.find('.search-result').first()
+            if direction not in ['up', 'down']
+                return
 
-        scrollTo: ($result) ->
-            top = $result.position().top - @$searchResults.position().top
-            @$searchResults.scrollTop(top)
+            @hoverEnabled = false
+
+            # If something is already selected
+            if @$selectedResult
+                # Get next/prev element
+                $newResult =
+                    if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
+
+                # If there is no next/previous element, reset
+                if $newResult.length < 1
+                    @$el.find("#search-input").focus()
+                    return @selectReset()
+
+                # Else select next/prev element
+                else
+                    $oldResult = @selectResult($newResult)
+                    if direction == 'up' then @scrollUp() else @scrollDown($oldResult)
+
+            # If nothing is selected
+            else
+                # If nothing already selected, select first or last
+                # element (depending on direction)
+                if direction == 'up'
+                    @selectResult @$searchResults.find('.search-result').last()
+                else
+                    @selectResult @$searchResults.find('.search-result').first()
+
+
+        scrollUp: () ->
+                @$searchResults.scrollTop(
+                    @$searchResults.scrollTop() - @$selectedResult.outerHeight())
+        scrollDown: ($result) ->
+                @$searchResults.scrollTop(
+                    @$searchResults.scrollTop() + $result.outerHeight())
 
         ## Given jq result object, deselect anything previously selected.
         ## Select result, update input text with new selection.
         ## Used for both keyboard and mouse events.
         selectResult: ($result) ->
             if @$selectedResult
-                @$selectedResult.removeClass('selected')
+                $oldResult = @$selectedResult.removeClass('selected')
             @$selectedResult = $result.addClass('selected')
             $("#search-input").attr 'value',  @$selectedResult.text()
+            return $oldResult
 
         ## Selects nothing, updates input box 
         selectReset: ->
-            if @$selectedResult
-                @$selectedResult.removeClass('selected')
+            if @$selectedResult then @$selectedResult.removeClass('selected')
             @$selectedResult = null
             $("#search-input").attr 'value',  ''
 
@@ -130,6 +155,7 @@ define [
             @$el.hide()
             ipedsID = $result.attr 'data-ipedsID'
             app.events.trigger 'search:resultSubmitted', ipedsID
+            @unbindDocumentEvents()
 
 
     return SearchOverlayView
