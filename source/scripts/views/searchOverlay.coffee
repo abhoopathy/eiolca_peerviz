@@ -99,7 +99,9 @@ define [
                     # If there is no next/previous element, reset
                     if $newResult.length < 1
                       if direction == 'up'
-                        return @selectResult @$searchResults.find('.search-result').last()
+                        $input = $("#search-input")
+                        setTimeout (-> $input.focus()), 0
+                        return @selectReset()
                       else
                         return @selectResult @$searchResults.find('.search-result').first()
                     @selectResult $newResult
