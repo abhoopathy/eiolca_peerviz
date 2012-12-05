@@ -9,6 +9,8 @@ define [
     RangeFilterTemplate
 ) ->
 
+    #### View for rendering range filters with a slider
+    ## TODO: make mouseup trigger even if not on handle
     RangeFilterView = Backbone.View.extend
 
         #### Initialization
