@@ -13,22 +13,21 @@ define [
         el: $('.search-overlay')
 
         initialize: () ->
-            _.bindAll(@)
+            _.bindAll(this)
             @$el.show()
             @$search = @$el.find("#search-input").focus()
             @$searchResults = @$el.find(".search-results")
             @handleKeyPresses()
 
         events:
-            'keyup #search-input': 'inputChanged'
-            'mouseenter .search-result': 'mouseOverResult'
-            'mouseleave .search-result': 'mouseOutResult'
-            'click .search-result': 'clickedResult'
+            'keyup #search-input'       : 'inputChanged'
+            'mouseenter .search-result' : 'mouseOverResult'
+            'mouseleave .search-result' : 'mouseOutResult'
+            'click .search-result'      : 'clickedResult'
 
 
 
         #### Handle Autocomplete Fetching ####
-
         ## On input change, fetch results and update
         inputChanged: (e) ->
             searchTerms = @$search.val()
@@ -63,7 +62,6 @@ define [
 
 
         #### Handle Key Events ####
-
         ## Bind them to document
         handleKeyPresses: -> $(window).bind('keyup', @handleKeys)
 
@@ -73,12 +71,10 @@ define [
             # downkey
             if  e.keyCode == 40
                 @selectChange('down')
-                $("#search-input").blur()
 
             # upkey
             if e.keyCode == 38
                 @selectChange('up')
-                $("#search-input").blur()
 
             # enter key
             if e.keyCode == 13
@@ -87,7 +83,6 @@ define [
 
 
         #### Methods for selecting results, and choosing them. ####
-
         ## Called to select next and previous result
         ## with arrow keys
         selectChange: (direction) ->

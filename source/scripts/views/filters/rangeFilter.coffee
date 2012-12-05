@@ -52,8 +52,8 @@ define [
 
         #### Handling UI Events
         events:
-            'click .remove': 'removeFilter'
-            'mouseup .ui-slider-handle': 'sliderChanged'
+            'click .remove'             : 'removeFilter'
+            'mouseup .ui-slider-handle' : 'sliderChanged'
 
         sliderChanged: ->
 

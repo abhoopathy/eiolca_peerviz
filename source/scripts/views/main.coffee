@@ -12,10 +12,6 @@ define [
 
         el: $('#app-wrapper')
 
-        events: { }
-
-        render: ->
-
         initialize: () ->
             pickNodesView = new PickNodesView()
 

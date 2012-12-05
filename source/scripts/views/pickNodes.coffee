@@ -13,12 +13,6 @@ define [
 
         el: $('#pick-nodes')
 
-        events: {
-        }
-
-        render: ->
-            #this.$el
-
         initialize: () ->
             this.render()
             filtersPaneView = new FiltersPaneView()
