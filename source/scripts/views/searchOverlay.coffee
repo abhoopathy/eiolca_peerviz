@@ -72,13 +72,13 @@ define [
             e.stopPropagation()
             # downkey
             if  e.keyCode == 40
-                @selectChange('down')
                 $("#search-input").blur()
+                @selectChange('down')
 
             # upkey
             if e.keyCode == 38
-                @selectChange('up')
                 $("#search-input").blur()
+                @selectChange('up')
 
             # enter key
             if e.keyCode == 13
@@ -99,8 +99,7 @@ define [
                     # If there is no next/previous element, reset
                     if $newResult.length < 1
                       if direction == 'up'
-                        $input = $("#search-input")
-                        setTimeout (-> $input.focus()), 0
+                        @$el.find("#search-input").focus()
                         return @selectReset()
                       else
                         return @selectResult @$searchResults.find('.search-result').first()
