@@ -98,12 +98,19 @@ define [
                         if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
                     # If there is no next/previous element, reset
                     if $newResult.length < 1
-                        return @selectReset()
+                      if direction == 'up'
+                        return @selectResult @$searchResults.find('.search-result').last()
+                      else
+                        return @selectResult @$searchResults.find('.search-result').first()
                     @selectResult $newResult
                     @scrollTo $newResult
                 else
-                    # If nothing already selected, select first element
-                    @selectResult @$searchResults.find('.search-result').first()
+                    # If nothing already selected, select first or last
+                    # element (depending on direction)
+                    if direction == 'up'
+                      @selectResult @$searchResults.find('.search-result').last()
+                    else
+                      @selectResult @$searchResults.find('.search-result').first()
 
         scrollTo: ($result) ->
             top = $result.position().top - @$searchResults.position().top
