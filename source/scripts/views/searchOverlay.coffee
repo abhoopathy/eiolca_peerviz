@@ -93,10 +93,8 @@ define [
                         if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
                     # If there is no next/previous element, reset
                     if $newResult.length < 1
-                      if direction == 'up'
-                        return @selectResult @$searchResults.find('.search-result').last()
-                      else
-                        return @selectResult @$searchResults.find('.search-result').first()
+                      @$el.find("#search-input").focus()
+                      return @selectReset()
                     @selectResult $newResult
                     @scrollTo $newResult
                 else
