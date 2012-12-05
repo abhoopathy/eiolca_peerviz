@@ -72,12 +72,10 @@ define [
             e.stopPropagation()
             # downkey
             if  e.keyCode == 40
-                $("#search-input").blur()
                 @selectChange('down')
 
             # upkey
             if e.keyCode == 38
-                $("#search-input").blur()
                 @selectChange('up')
 
             # enter key
@@ -98,11 +96,8 @@ define [
                         if direction == 'up' then @$selectedResult.prev() else @$selectedResult.next()
                     # If there is no next/previous element, reset
                     if $newResult.length < 1
-                      if direction == 'up'
-                        @$el.find("#search-input").focus()
-                        return @selectReset()
-                      else
-                        return @selectResult @$searchResults.find('.search-result').first()
+                      @$el.find("#search-input").focus()
+                      return @selectReset()
                     @selectResult $newResult
                     @scrollTo $newResult
                 else
