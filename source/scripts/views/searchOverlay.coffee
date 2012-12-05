@@ -142,12 +142,15 @@ define [
             $("#search-input").attr 'value',  @$selectedResult.text()
             return $oldResult
 
-        ## Selects nothing, clear input box
         selectReset: ->
+            # Select nothing
             if @$selectedResult
                 @$selectedResult.removeClass('selected')
             @$selectedResult = null
+            # Empty the input box
             $("#search-input").attr 'value',  ''
+            # Scroll to the top of the results
+            @$searchResults.scrollTop(0)
 
         ## Submit a result. Happens both on click and on 'enter'
         submitResult: ($result) ->
