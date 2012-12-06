@@ -43,6 +43,10 @@ define [
         bindEvents: ->
             _.bindAll(this)
             this.filters.on 'change:urlParam', this.filterChanged
+            app.events.on 'search:resultSubmitted', this.setFiltersFromNodeData
+
+        setFiltersFromNodeData: (nodeData) ->
+            console.log nodeData
 
         filterChanged: () ->
             console.log this.filters.getUrlParams()

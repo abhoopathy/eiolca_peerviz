@@ -12,7 +12,7 @@
     if($result) {
         $rows = array();
 		while ($r = mysql_fetch_assoc($result)) {
-            $rows[] = $r;
+            $rows[$r['unitid']] = $r;
 		}
         print json_encode($rows);
 	}
