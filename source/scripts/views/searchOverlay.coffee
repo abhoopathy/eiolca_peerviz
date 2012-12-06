@@ -86,8 +86,9 @@ define [
         emptyResults: -> @$searchResults.html ''
 
         ## Update results container given results json
-        updateResults: (results) ->
-            compiledTemplate = SearchResultsTemplate({results: results})
+        updateResults: (resultsData) ->
+            compiledTemplate =
+                SearchResultsTemplate({results: resultsData})
             @$searchResults.html compiledTemplate
 
 
@@ -156,6 +157,7 @@ define [
         submitResult: ($result) ->
             @$el.hide()
             ipedsID = $result.attr 'data-ipedsID'
+            console.log ipedsID
             app.events.trigger 'search:resultSubmitted', ipedsID
             @unbindDocumentEvents()
 
