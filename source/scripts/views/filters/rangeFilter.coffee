@@ -27,8 +27,8 @@ define [
             @$el.html(compiledTemplate)
 
         addSlider: ->
-            loRange = @filter.get('loRange')
-            hiRange = @filter.get('hiRange')
+            loRange = @filter.getConfig('loRange')
+            hiRange = @filter.getConfig('hiRange')
 
             opts =
                 view: this
@@ -54,8 +54,8 @@ define [
 
         #### Handling External events
         filterDataChanged: ->
-            loVal = @filter.get('data').loVal
-            hiVal = @filter.get('data').hiVal
+            loVal = @filter.getData('loVal')
+            hiVal = @filter.getData('hiVal')
             @$slider.slider( "values", [ loVal, hiVal ] );
             @$loTip.text(loVal)
             @$hiTip.text(hiVal)
@@ -67,10 +67,9 @@ define [
             'mouseup .ui-slider-handle' : 'sliderChanged'
 
         sliderChanged: ->
-            @filter.set
-                data:
-                    loVal: @loVal
-                    hiVal: @hiVal
+            @filter.setData
+                loVal: @loVal
+                hiVal: @hiVal
 
 
         ## On filter remove, set the url parameter string to '' and trigger

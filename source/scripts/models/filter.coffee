@@ -18,33 +18,50 @@ define ['underscore','backbone'], (_,Backbone) ->
         #TODO add validation
         #validate:
 
-        dataChanged: -> @set({urlParam: @getURLString()})
+        dataChanged: ->
+            @set({urlParam: @getURLString()})
+            @trigger('change:urlParam')
+
+        getConfig: (key) ->
+            # TODO: if key exists
+            configData = @get('config')
+            return configData[key]
+
+        getData: (key) ->
+            # TODO: if key exists
+            data = @get('data')
+            return data[key]
+
+        setData: (obj) ->
+            data = @get('data')
+            _.each(obj, (k,v) ->
+                data[v] = k)
+            @trigger('change:data')
 
         getURLString: ->
-
             if @get('type') == 'select'
-                val = @get('data').selection
+                val = @getData('selection')
                 if val == 'default'
                     return ''
                 else
-                    urlParamName = @get "urlParamName"
+                    urlParamName = @getConfig "urlParamName"
                     return  urlParamName + "=" + val
 
             else if @get('type') == 'range'
                 loVal = @get('data').loVal
                 hiVal = @get('data').hiVal
 
-                if loVal == @get('loRange')
+                if loVal == @getConfig('loRange')
                     loStr = ''
                 else
-                    loStr = @get('loUrlParamName') +
+                    loStr = @getConfig('loUrlParamName') +
                         '=' + loVal
 
-                if hiVal == @get('hiRange')
+                if hiVal == @getConfig('hiRange')
                     hiStr = ''
                 else
                     hiStr = (if loStr == '' then '' else '&') +
-                        @get('hiUrlParamName') +
+                        @getConfig('hiUrlParamName') +
                         '=' + hiVal
 
                 return loStr + hiStr

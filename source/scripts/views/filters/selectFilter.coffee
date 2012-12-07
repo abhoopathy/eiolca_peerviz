@@ -2,7 +2,6 @@ define [
     'jquery'
     'backbone'
     'jade!templates/filters/selectFilter'
-
 ], (
     $
     Backbone
@@ -26,7 +25,7 @@ define [
 
         #### Handling External events
         filterDataChanged: ->
-            selection = @filter.get('data').selection
+            selection = @filter.getData('selection')
             $option = @$el.find(".select-option[data-val='#{selection}']")
             @select($option)
 
@@ -44,9 +43,8 @@ define [
             @select($option)
 
             # Get parameter value
-            urlParamValue = $option.attr('data-val')
-            @filter.set
-                data: {selection: urlParamValue}
+            selection = $option.attr('data-val')
+            @filter.setData {selection: selection}
 
         select: ($option) ->
             @$el.find('li.select-option.selected')

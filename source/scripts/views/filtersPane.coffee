@@ -47,27 +47,25 @@ define [
 
         setFiltersFromNodeData: (nodeData) ->
 
-            @filters.get('climateZone').set
-                data:
-                    selection: nodeData.climate
-
-            @filters.get('enrollment').set
-                 data:
-                     loVal: parseInt(nodeData.enrollment) - 5000
-                     hiVal: parseInt(nodeData.enrollment) + 5000
-
-            @filters.get('type').set
-                data:
-                     selection: nodeData.is_private
+            @filters.get('climateZone').setData { selection: nodeData.climate }
+            @filters.get('enrollment').setData
+                    loVal: parseInt(nodeData.enrollment) - 6000
+                    hiVal: parseInt(nodeData.enrollment) + 6000
+            @filters.get('type').setData {  selection: nodeData.is_private }
 
         filterChanged: () ->
             params = @filters.getUrlParams()
-            if @timemout
-                clearTimeout(@timeout)
+            clearTimeout(@timeout)
             @timeout = setTimeout(
-                (-> console.log params),
-                100)
+                (->
+                    app.events.trigger('filters:urlParamsChanged', params)
+                    console.log params
+                ), 80)
 
+
+        ####
+        ## Adds a filter view given it's id.
+        ## TODO: validation
         addFilter: (filterID) ->
             filter = @filters.get(filterID)
 
@@ -80,42 +78,47 @@ define [
 
 
         #### Filter data for app-wide filter collection
-        # TODO put specifics in seperate top level val
+
+        # TODO: put modality specific options in seperate attr
+        #   and add getter/setter methods for it in filter model
         filterData: [{
                 id: 'climateZone'
                 title: 'Climate Zone'
                 type: 'select'
-                options: [
-                    {display:'1', value:'1'},
-                    {display:'2', value:'2'},
-                    {display:'3', value:'3'},
-                    {display:'4', value:'4'},
-                    {display:'5', value:'5'},
-                ]
+                config:
+                    options: [
+                        {display:'1', value:'1'},
+                        {display:'2', value:'2'},
+                        {display:'3', value:'3'},
+                        {display:'4', value:'4'},
+                        {display:'5', value:'5'},
+                    ]
+                    urlParamName: 'climate'
                 data:
                     selection: 'default'
-                urlParamName: 'climate'
             },
             {
                 id: 'type'
                 title: 'Type'
                 type: 'select'
-                options: [
-                    {display:'Public', value:'1'},
-                    {display:'Private', value:'0'},
-                ]
+                config:
+                    options: [
+                        {display:'Public', value:'1'},
+                        {display:'Private', value:'0'},
+                    ]
+                    urlParamName: 'public'
                 data:
                     selection: 'default'
-                urlParamName: 'public'
             }
             {
                 id: 'enrollment'
                 title: 'Enrollment'
                 type: 'range'
-                loRange: 0
-                hiRange: 40000
-                loUrlParamName: 'lo_pop'
-                hiUrlParamName: 'hi_pop'
+                config:
+                    loRange: 0
+                    hiRange: 40000
+                    loUrlParamName: 'lo_pop'
+                    hiUrlParamName: 'hi_pop'
                 data:
                     loVal: @loRange
                     hiVal: @hiRange
