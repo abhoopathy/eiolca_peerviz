@@ -13,13 +13,22 @@ define [
 
         #### Initialization
         initialize: (filterModel) ->
-            this.filter = filterModel
-            this.render()
+            _.bindAll(this)
+            @filter = filterModel
+            @filter.on 'change:data', @filterDataChanged
+            @render()
 
         render: ->
             compiledTemplate =
-                SelectFilterTemplate(this.filter.toJSON())
-            this.$el.html(compiledTemplate)
+                SelectFilterTemplate(@filter.toJSON())
+            @$el.html(compiledTemplate)
+
+
+        #### Handling External events
+        filterDataChanged: ->
+            selection = @filter.get('data').selection
+            $option = @$el.find(".select-option[data-val='#{selection}']")
+            @select($option)
 
 
         #### Handling UI Events
@@ -32,19 +41,22 @@ define [
         ## name=val pair.
         selectChanged: (e) ->
             $option = $(e.target)
-            this.$el.find('li.select-option.selected')
-                .removeClass('selected')
-            $option.addClass('selected')
+            @select($option)
 
             # Get parameter value
             urlParamValue = $option.attr('data-val')
-            this.filter.set
+            @filter.set
                 data: {selection: urlParamValue}
+
+        select: ($option) ->
+            @$el.find('li.select-option.selected')
+                .removeClass('selected')
+            $option.addClass('selected')
 
         ## On filter remove, set the url parameter string to '' and trigger
         ## filter:removed
         removeFilter: ->
-            this.$el.remove()
-            this.filter.set({urlParam: '', active: false})
+            @$el.remove()
+            @filter.set({urlParam: '', active: false})
 
     return SelectFilterView

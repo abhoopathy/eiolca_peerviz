@@ -53,8 +53,8 @@ define [
 
             @filters.get('enrollment').set
                  data:
-                     loVal: parseInt(nodeData.enrollment) - 100
-                     hiVal: parseInt(nodeData.enrollment) + 100
+                     loVal: parseInt(nodeData.enrollment) - 5000
+                     hiVal: parseInt(nodeData.enrollment) + 5000
 
             @filters.get('type').set
                 data:
@@ -113,7 +113,7 @@ define [
                 title: 'Enrollment'
                 type: 'range'
                 loRange: 0
-                hiRange: 12000000
+                hiRange: 40000
                 loUrlParamName: 'lo_pop'
                 hiUrlParamName: 'hi_pop'
                 data:

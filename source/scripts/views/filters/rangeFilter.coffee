@@ -15,18 +15,20 @@ define [
 
         #### Initialization
         initialize: (filterModel) ->
-            this.filter = filterModel
-            this.render()
-            this.addSlider()
+            _.bindAll(this)
+            @filter = filterModel
+            @filter.on 'change:data', @filterDataChanged
+            @render()
+            @addSlider()
 
         render: ->
             compiledTemplate =
-                RangeFilterTemplate(this.filter.toJSON())
-            this.$el.html(compiledTemplate)
+                RangeFilterTemplate(@filter.toJSON())
+            @$el.html(compiledTemplate)
 
         addSlider: ->
-            loRange = this.filter.get('loRange')
-            hiRange = this.filter.get('hiRange')
+            loRange = @filter.get('loRange')
+            hiRange = @filter.get('hiRange')
 
             opts =
                 view: this
@@ -35,21 +37,28 @@ define [
                 max: hiRange
                 values: [loRange, hiRange]
                 slide: (e, ui) ->
-                    $tip = this.view.$loTip.text(ui.values[0])
-                    $tip = this.view.$hiTip.text(ui.values[1])
-                    this.view.loVal = ui.values[0]
-                    this.view.hiVal = ui.values[1]
+                    $tip = @view.$loTip.text(ui.values[0])
+                    $tip = @view.$hiTip.text(ui.values[1])
+                    @view.loVal = ui.values[0]
+                    @view.hiVal = ui.values[1]
 
             _.bindAll(opts)
 
-            this.$slider = this.$el.find('.range-slider').slider opts
+            @$slider = @$el.find('.range-slider').slider opts
 
-            this.$loTip = this.$el.find('.loVal')
-            this.$hiTip = this.$el.find('.hiVal')
-            this.$el.find('.ui-slider-handle:eq(0)').append this.$loTip
-            this.$el.find('.ui-slider-handle:eq(1)').append this.$hiTip
+            @$loTip = @$el.find('.loVal')
+            @$hiTip = @$el.find('.hiVal')
+            @$el.find('.ui-slider-handle:eq(0)').append @$loTip
+            @$el.find('.ui-slider-handle:eq(1)').append @$hiTip
 
 
+        #### Handling External events
+        filterDataChanged: ->
+            loVal = @filter.get('data').loVal
+            hiVal = @filter.get('data').hiVal
+            @$slider.slider( "values", [ loVal, hiVal ] );
+            @$loTip.text(loVal)
+            @$hiTip.text(hiVal)
 
 
         #### Handling UI Events
@@ -58,18 +67,17 @@ define [
             'mouseup .ui-slider-handle' : 'sliderChanged'
 
         sliderChanged: ->
-            this.filter.set
+            @filter.set
                 data:
-                    loVal: this.loVal
-                    hiVal: this.hiVal
-
+                    loVal: @loVal
+                    hiVal: @hiVal
 
 
         ## On filter remove, set the url parameter string to '' and trigger
         ## filter:removed
         removeFilter: ->
-            this.$el.remove()
-            this.filter.set({urlParam: ''})
-            #app.events.trigger('filter:removed', this.filter.id)
+            @$el.remove()
+            @filter.set({urlParam: ''})
+            #app.events.trigger('filter:removed', @filter.id)
 
     return RangeFilterView
