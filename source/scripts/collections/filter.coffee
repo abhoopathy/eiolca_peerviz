@@ -12,7 +12,7 @@ define [
         getUrlParams: ->
             urlChunks = _.filter(
                     # Get urlParam of each model
-                    (_.map this.models, (filter) -> filter.get 'urlParam'), #
+                    (_.map this.models, (filter) -> filter.get('urlParam')), #
                     # Include only non-empty urlParams
                     (urlChunk) -> urlChunk != '')
 

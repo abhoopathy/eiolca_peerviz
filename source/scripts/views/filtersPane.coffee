@@ -25,47 +25,64 @@ define [
 
         initialize: ->
             # Initialize and populate filter collection
-            this.filters = new FilterCollection()
-            this.filters.add this.filterData
+            @filters = new FilterCollection()
+            @filters.add @filterData
 
-            this.$filterList = $(".filter-list")
+            @$filterList = $(".filter-list")
 
-            #TODO fix this
-            this.addFilter(1)
-            this.addFilter(2)
-            this.addFilter(3)
+            # TODO: fix this
+            @addFilter('climateZone')
+            @addFilter('type')
+            @addFilter('enrollment')
 
-            this.bindEvents()
+            @bindEvents()
 
 
         #### Handle External events
 
         bindEvents: ->
             _.bindAll(this)
-            this.filters.on 'change:urlParam', this.filterChanged
-            app.events.on 'search:resultSubmitted', this.setFiltersFromNodeData
+            @filters.on 'change:urlParam', @filterChanged
+            app.events.on 'search:resultSubmitted', @setFiltersFromNodeData
 
         setFiltersFromNodeData: (nodeData) ->
-            console.log nodeData
+
+            @filters.get('climateZone').set
+                data:
+                    selection: nodeData.climate
+
+            @filters.get('enrollment').set
+                 data:
+                     loVal: parseInt(nodeData.enrollment) - 100
+                     hiVal: parseInt(nodeData.enrollment) + 100
+
+            @filters.get('type').set
+                data:
+                     selection: nodeData.is_private
 
         filterChanged: () ->
-            console.log this.filters.getUrlParams()
+            params = @filters.getUrlParams()
+            if @timemout
+                clearTimeout(@timeout)
+            @timeout = setTimeout(
+                (-> console.log params),
+                100)
 
         addFilter: (filterID) ->
-            filter = this.filters.get(filterID)
+            filter = @filters.get(filterID)
 
             if filter.get('type') == 'select'
                 filterView = new SelectFilterView(filter)
             if filter.get('type') == 'range'
                 filterView = new RangeFilterView(filter)
 
-            this.$filterList.append filterView.el
+            @$filterList.append filterView.el
 
 
         #### Filter data for app-wide filter collection
         # TODO put specifics in seperate top level val
         filterData: [{
-                id: '1'
+                id: 'climateZone'
                 title: 'Climate Zone'
                 type: 'select'
                 options: [
@@ -75,26 +92,33 @@ define [
                     {display:'4', value:'4'},
                     {display:'5', value:'5'},
                 ]
+                data:
+                    selection: 'default'
                 urlParamName: 'climate'
             },
             {
-                id: '2'
+                id: 'type'
                 title: 'Type'
                 type: 'select'
                 options: [
                     {display:'Public', value:'1'},
                     {display:'Private', value:'0'},
                 ]
+                data:
+                    selection: 'default'
                 urlParamName: 'public'
             }
             {
-                id: '3'
+                id: 'enrollment'
                 title: 'Enrollment'
                 type: 'range'
                 loRange: 0
                 hiRange: 12000000
                 loUrlParamName: 'lo_pop'
                 hiUrlParamName: 'hi_pop'
+                data:
+                    loVal: @loRange
+                    hiVal: @hiRange
             }]
 
     return FiltersPaneView

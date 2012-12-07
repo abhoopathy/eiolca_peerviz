@@ -38,12 +38,8 @@ define [
 
             # Get parameter value
             urlParamValue = $option.attr('data-val')
-
-            if urlParamValue == 'default'
-                this.filter.set {urlParam: ''}
-            else
-                urlParamName = this.filter.get "urlParamName"
-                this.filter.set {urlParam: urlParamName + "=" + urlParamValue}
+            this.filter.set
+                data: {selection: urlParamValue}
 
         ## On filter remove, set the url parameter string to '' and trigger
         ## filter:removed

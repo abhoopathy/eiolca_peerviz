@@ -58,21 +58,11 @@ define [
             'mouseup .ui-slider-handle' : 'sliderChanged'
 
         sliderChanged: ->
+            this.filter.set
+                data:
+                    loVal: this.loVal
+                    hiVal: this.hiVal
 
-            if this.loVal == this.filter.get('loRange')
-                loStr = ''
-            else
-                loStr = this.filter.get('loUrlParamName') +
-                    '=' + this.loVal
-
-            if this.hiVal == this.filter.get('hiRange')
-                hiStr = ''
-            else
-                hiStr = (if loStr == '' then '' else '&') +
-                    this.filter.get('hiUrlParamName') +
-                    '=' + this.hiVal
-
-            this.filter.set { urlParam: loStr + hiStr }
 
 
         ## On filter remove, set the url parameter string to '' and trigger
