@@ -1,7 +1,6 @@
-.filter
-    h2= title
-    .remove +
-    ul.select-options
-        li.select-option.selected(data-val='default') All
-        - for k in config.options
-            li.select-option(data-val=k.value)= k.display
+h2= title
+.remove +
+ul.select-options
+    li.select-option.selected(data-val='default') All
+    - for k in config.options
+        li.select-option(data-val=k.value)= k.display

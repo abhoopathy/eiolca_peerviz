@@ -121,7 +121,6 @@ p {
   opacity: 0.5;
 }
 .search-overlay #search-overlay-box {
-  color: white;
   position: absolute;
   background-color: black;
   left: 50%;
@@ -131,21 +130,25 @@ p {
   z-index: 999;
   padding: 5%;
 }
+.search-overlay #search-overlay-box h1 {
+  color: white;
+}
 .search-overlay #search-overlay-box p {
   margin-top: .7em;
   color: #b3b3b3;
 }
 .search-overlay #search-overlay-box #search-input {
   width: 100%;
-  font-size: 1.8em;
   border: none;
   padding: 10px;
-  text-transform: uppercase;
 }
 .search-overlay #search-overlay-box ul.search-results {
   margin-top: 10px;
   max-height: 200px;
   overflow: scroll;
+}
+.search-overlay #search-overlay-box ul.search-results::-webkit-scrollbar {
+  display: none;
 }
 .search-overlay #search-overlay-box ul.search-results li.search-result {
   border-bottom: 1px solid #272727;
@@ -154,8 +157,8 @@ p {
   cursor: pointer;
 }
 .search-overlay #search-overlay-box ul.search-results li.search-result .search-result-name {
+  color: #b3b3b3;
   float: left;
-  font-size: 1.8em;
   line-height: 1em;
 }
 .search-overlay #search-overlay-box ul.search-results li.search-result .search-result-city {
@@ -168,39 +171,46 @@ p {
 .search-overlay #search-overlay-box ul.search-results li.search-result:first-child {
   border-top: 1px solid grey;
 }
-* {
+.miso {
   font-family: "misoregular";
-  font-size: 14px;
+  text-transform: uppercase;
+}
+.misobold {
+  font-family: "misobold";
+  text-transform: uppercase;
+}
+.misolight {
+  font-family: "misolight";
+  text-transform: uppercase;
+}
+* {
+  font-family: "helvetica";
+  font-size: 12px;
+  color: #333333;
 }
 p {
-  font-family: "misolight";
-  font-size: 1.3em;
+  font-size: 1em;
 }
 h1 {
-  font-family: "misoregular";
-  text-transform: uppercase;
   font-size: 1.5em;
-  font-weight: bold;
 }
 h2 {
-  font-family: "misoregular";
-  text-transform: uppercase;
-  font-size: 1.3em;
+  font-size: 1em;
   font-weight: bold;
 }
 #app-wrapper {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  right: 30px;
-  bottom: 30px;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
 }
 #app-wrapper #pick-nodes #filters-wrapper {
   position: absolute;
-  top: 0;
+  top: 50px;
+  bottom: 0;
   left: 0;
   width: 200px;
-  bottom: 0;
 }
 #app-wrapper #pick-nodes #filters-wrapper #filter-selector .add-filter {
   width: 100%;
@@ -225,13 +235,16 @@ h2 {
   left: 0;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter {
-  border-top: 1px dotted black;
+  border-top: 1px solid #c3c3c3;
   padding-top: 8px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter h2 {
   margin-bottom: 5px;
+}
+#app-wrapper #pick-nodes #filters-wrapper .filter-list .filter:first-child {
+  border-top: none;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter .remove {
   position: absolute;
@@ -253,22 +266,23 @@ h2 {
   float: left;
   padding: 8px;
   margin-left: 5px;
-  background-color: #cdcdcd;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   -moz-background-clip: padding;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
-  text-transform: uppercase;
+  background-color: #e6e6e6;
   cursor: pointer;
+  font-family: "misoregular";
+  text-transform: uppercase;
+  font-size: 1.1em;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter ul.select-options li.select-option:hover {
-  background-color: #b3b3b3;
+  background-color: #cdcdcd;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter ul.select-options li.select-option.selected {
-  background-color: black;
-  color: white;
+  background-color: #f36c36;
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter .range-slider {
   width: 85%;
@@ -296,4 +310,70 @@ h2 {
 }
 #app-wrapper #pick-nodes #filters-wrapper .filter-list .filter:hover .remove:hover {
   color: #b3b3b3;
+}
+#app-wrapper #pick-nodes #peers-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 200px;
+  right: 0;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peers-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  border-bottom: 1px solid #c3c3c3;
+}
+#app-wrapper #pick-nodes #peers-wrapper #map-wrapper {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 200px;
+  text-align: center;
+}
+#app-wrapper #pick-nodes #peers-wrapper #map-wrapper img {
+  width: 90%;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 200px;
+  bottom: 0;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list {
+  overflow-y: auto;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer {
+  cursor: pointer;
+  border-top: 1px solid #c3c3c3;
+  padding: 10px;
+  position: relative;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer:first-child {
+  border-top: none;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer .peer-name {
+  font-size: 1.1em;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer .peer-city {
+  font-size: .8em;
+  margin-top: 3px;
+  color: #8c8c8c;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer ul.peer-info {
+  display: none;
+}
+#app-wrapper #pick-nodes #peers-wrapper #peer-list-wrapper ul.peers-list li.peer:hover {
+  background-color: #f3f3f3;
 }

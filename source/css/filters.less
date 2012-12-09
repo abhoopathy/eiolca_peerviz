@@ -36,10 +36,13 @@
         h2 {
             margin-bottom: 5px;
         }
-        border-top: 1px dotted black;
+        border-top: 1px solid @grey;
         padding-top: 8px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         position: relative;
+        &:first-child {
+            border-top: none;
+        }
 
         .remove {
             position: absolute;
@@ -60,17 +63,17 @@
                 float: left;
                 padding: 8px;
                 margin-left: 5px;
-                background-color: lighten(grey, 30%);
                 .rounded(3px);
-                text-transform: uppercase;
+                background-color: @secondary_color;
                 cursor: pointer;
+                .miso;
+                font-size: 1.1em;
                 &:hover {
-                    background-color: lighten(grey, 20%);
+                    background-color: @hover_color;
                 }
 
                 &.selected {
-                    background-color: black;
-                    color: white;
+                    background-color: @primary_color;
                 }
             }
         }

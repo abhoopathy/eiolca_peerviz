@@ -17,6 +17,8 @@ define [
             @filter.on 'change:data', @filterDataChanged
             @render()
 
+        el: '<div class="filter"></div>'
+
         render: ->
             compiledTemplate =
                 SelectFilterTemplate(@filter.toJSON())

@@ -1,0 +1,45 @@
+ul.peers-list {
+
+    overflow-y: auto;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+
+    li.peer {
+        cursor: pointer;
+        border-top: 1px solid @grey;
+        padding: 10px;
+        position: relative;
+
+        &:first-child {
+            border-top: none;
+        }
+        .peer-name {
+            font-size: 1.1em;
+        }
+        .peer-city {
+            font-size: .8em;
+            margin-top: 3px;
+            color: @light_text_color;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        ul.peer-info {
+            display: none;
+
+            li.peer-info-row {
+                .peer-info-label {}
+                .peer-info-value {}
+                .peer-info-nolabelvalue {}
+            }
+        }
+
+        &:hover {
+            background-color: lighten(@hover_color, 15%);
+            ul.peer-info {
+            }
+        }
+    }
+}

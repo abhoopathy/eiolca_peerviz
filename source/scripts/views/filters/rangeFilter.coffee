@@ -21,6 +21,8 @@ define [
             @render()
             @addSlider()
 
+        el: '<div class="filter"></div>'
+
         render: ->
             compiledTemplate =
                 RangeFilterTemplate(@filter.toJSON())

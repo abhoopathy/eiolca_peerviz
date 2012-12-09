@@ -59,7 +59,6 @@ define [
             @timeout = setTimeout(
                 (->
                     app.events.trigger('filters:urlParamsChanged', params)
-                    console.log params
                 ), 80)
 
 

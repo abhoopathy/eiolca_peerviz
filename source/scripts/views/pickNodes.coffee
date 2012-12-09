@@ -4,10 +4,12 @@ define [
     'backbone',
     'cs!views/filtersPane',
     'cs!views/searchOverlay',
+    'cs!views/peerResultsPane',
+    'cs!collections/node'
 
     'jqueryui',
 
-], ($, _, Backbone, FiltersPaneView, SearchOverlayView) ->
+], ($, _, Backbone, FiltersPaneView, SearchOverlayView, PeerResultsPaneView, NodeCollection) ->
 
     PickNodesView = Backbone.View.extend
 
@@ -15,8 +17,11 @@ define [
 
         initialize: () ->
             this.render()
+
+            app.nodes = new NodeCollection()
+
             filtersPaneView = new FiltersPaneView()
             searchOverlayView = new SearchOverlayView()
-            #peerResultsView = new peerResultsView()
+            peerResultsPaneView = new PeerResultsPaneView()
 
     return PickNodesView
