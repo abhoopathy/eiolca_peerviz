@@ -324,7 +324,7 @@ h2 {
   left: 0;
   right: 0;
   height: 50px;
-  border-bottom: 1px solid #c3c3c3;
+  border-bottom: 1px solid grey;
 }
 #app-wrapper #pick-nodes #peers-wrapper #map-wrapper {
   position: absolute;
