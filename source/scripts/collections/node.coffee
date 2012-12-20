@@ -1,5 +1,5 @@
 define [
-    'underscore',
+    'lodash',
     'backbone',
     'cs!models/node'
 

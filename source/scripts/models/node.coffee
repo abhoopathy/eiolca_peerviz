@@ -1,4 +1,4 @@
-define ['underscore','backbone'], (_,Backbone) ->
+define ['lodash','backbone'], (_,Backbone) ->
 
     NodeModel = Backbone.Model.extend
 

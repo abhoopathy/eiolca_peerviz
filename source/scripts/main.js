@@ -4,16 +4,16 @@ require.config({
     paths: {
         jquery: 'libs/jquery/jquery-1.8.3.min',
         jqueryui: 'libs/jquery/jquery-ui-1.9.2.custom.min',
-        underscore: 'libs/underscore/underscore-min',
+        lodash: 'libs/lodash/lodash-min',
         backbone: 'libs/backbone/backbone-min'
     },
 
     shim: {
         backbone: {
-            deps: ['underscore', 'jquery'],
+            deps: ['lodash', 'jquery'],
             exports: 'Backbone'
         },
-        underscore: {
+        lodash: {
             exports: '_'
         },
         jquery: {
