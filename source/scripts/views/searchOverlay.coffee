@@ -1,6 +1,6 @@
 define [
     'jquery',
-    'underscore',
+    'lodash',
     'backbone',
     'jade!templates/searchResults'
 ], ($, _, Backbone, SearchResultsTemplate) ->

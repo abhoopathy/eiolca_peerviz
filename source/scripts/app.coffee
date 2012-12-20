@@ -1,6 +1,6 @@
 
 define [
-    'underscore',
+    'lodash',
     'backbone',
 
     'cs!router',
