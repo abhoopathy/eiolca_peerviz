@@ -1,6 +1,7 @@
 <?php
 
     include("headers.php");
+    include("json_encode.php");
     mysql_select_db("eiolca", $con);
     $search_term = $_GET['term'];
 
