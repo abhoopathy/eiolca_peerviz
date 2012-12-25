@@ -1,7 +1,6 @@
 <?php
 
     include("headers.php");
-    include("json_encode.php");
     mysql_select_db("eiolca", $con);
     $search_term = $_GET['term'];
 
@@ -12,14 +11,42 @@
 
     if($result) {
         $rows = array();
-		while ($r = mysql_fetch_assoc($result)) {
+        while ($r = mysql_fetch_assoc($result)) {
             $rows[$r['unitid']] = $r;
-		}
-        print json_encode($rows);
-	}
-	else {
-		echo "Error: failed or no result from query";
-	}
+        }
+
+
+        // everything from here...
+        print "{";
+        $i = 1;
+        $len = count($rows);
+        foreach ($rows as $id => $result) {
+            print '"'.$id.'":{';
+
+            $j = 1;
+            foreach ($result as $field => $value) {
+                print '"'.$field.'"'.':'.'"'.$value.'"';
+                if ($j != count($result))
+                    print ',';
+                $j++;
+            }
+
+            print '}';
+            if ($i != $len)
+                print ',';
+            $i ++;
+        }
+        print "}";
+
+        // ...until here, could be replaced with a simple
+        // print json_encode($rows);
+        // if we can update the php version on the server!
+
+
+    }
+    else {
+        echo "Error: failed or no result from query";
+    }
 
     mysql_close($con);
 ?>
